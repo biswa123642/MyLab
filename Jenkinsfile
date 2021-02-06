@@ -28,7 +28,7 @@ pipeline{
             steps {
                 script {
 
-                def NexusRepo = Version.endsWith("SNAPSHOT") "Biswajit-snapshot" : "Biswajit-release"
+                def NexusRepo = Version.endsWith("SNAPSHOT") "Biswajit-SNAPSHOT" : "Biswajit-release"
 
                 nexusArtifactUploader artifacts: 
                 [[artifactId: "${ArtifactId}", 
