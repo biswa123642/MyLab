@@ -32,7 +32,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Vinay's DevOps AWS Lab</a>
+            <a class="navbar-brand" href="#">THIS IS THE BEST LAB OF BISWAJIT</a>
         </div>
         <div class="navbar-collapse collapse">
             <form class="navbar-form navbar-right" role="form">
@@ -91,7 +91,7 @@
     <hr>
 
     <footer>
-        <p>&copy; Let's Enjoy This Course</p>
+        <p>&copy; Biswajit I am with you</p>
     </footer>
 </div> <!-- /container -->
 
