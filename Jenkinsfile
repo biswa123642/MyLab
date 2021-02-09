@@ -26,7 +26,7 @@ pipeline{
         //Stage3 : Publish the artifacts to Nexus
         stage ('Publish to Nexus'){
             steps {    
-                nexusArtifactUploader artifacts: [[artifactId: 'mydetails', classifier: '', file: 'target/mydetails-0.0.8.war', type: 'war']], credentialsId: 'b9fa9687-ccbc-4196-86e1-6488fbfece9e', groupId: 'com.BISWAJIT', nexusUrl: '100.26.232.221:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'biswajit-release', version: '0.0.8'
+                nexusArtifactUploader artifacts: [[artifactId: 'mydetails', classifier: '', file: 'target/mydetails-0.0.8.war', type: 'war']], credentialsId: 'cbdbd395-489b-4ae9-96f6-fd7da75efe8d', groupId: 'com.BISWAJIT', nexusUrl: '3.231.164.195:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'biswajit-release', version: '0.0.8'
             }
         }
         
