@@ -22,18 +22,14 @@ pipeline{
 
             }
         }
-        
-        //Stage3 : Publish the artifacts to Nexus
-        stage ('Publish to Nexus'){
-            steps {    
-                nexusArtifactUploader artifacts: [[artifactId: 'mydetails', classifier: '', file: 'target/mydetails-0.0.8.war', type: 'war']], credentialsId: 'cb36ea8c-77da-40fc-b18c-ce63d57b4dbd', groupId: 'com.BISWAJIT', nexusUrl: '3.92.6.72:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'biswajit-release', version: '0.0.8'
-            }
-        }
-        
-        // Stage3 : Deploying
-        stage ('Deploy'){
+
+        // Stage3 : Publish the source code to Sonarqube
+        stage ('Sonarqube Analysis'){
             steps {
-                echo ' Deploying...........'
+                echo ' Source code published to Sonarqube for SCA......'
+                withSonarQubeEnv('sonarqube'){ // You can override the credential to be used
+                     sh 'mvn sonar:sonar'
+                }
 
             }
         }
