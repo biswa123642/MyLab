@@ -23,19 +23,20 @@ pipeline{
             }
         }
 
-        // Stage3 : Publish the source code to Sonarqube
-        stage ('Sonarqube Analysis'){
+        // Stage3 : Publish the artifact ti nexus
+        stage ('Publish to nexus'){
             steps {
-                echo ' Source code published to Sonarqube for SCA......'
-                withSonarQubeEnv('sonarqube'){ // You can override the credential to be used
-                     sh 'mvn sonar:sonar'
-                }
-
+                
+            }
+        }
+      
+        //Stage4 : Deploying
+        stage ('Deploy'){
+            steps {
+                echo 'deploying.......'
             }
         }
 
-        
-        
     }
 
 }
