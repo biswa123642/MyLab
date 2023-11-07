@@ -8,7 +8,7 @@ pipeline{
     environment {
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "52.188.125.203:8081"
+        NEXUS_URL = "nexusurl"
         NEXUS_REPOSITORY = "BiswajitApp"
         NEXUS_CREDENTIAL_ID = "nexuscredential"
         ARTIFACT_VERSION = "${BUILD_NUMBER}"
@@ -25,7 +25,7 @@ pipeline{
         stage ('Deploy'){
             steps {
                 script {
-                    deploy adapters: [tomcat9(url: 'http://172.191.67.179:8080/', 
+                    deploy adapters: [tomcat9(url: 'tomcaturl', 
                         credentialsId: 'tomcatcredential')], 
                     war: '**/*.war',
                     onFailure: false,
