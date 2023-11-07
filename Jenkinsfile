@@ -28,7 +28,9 @@ pipeline{
                     deploy adapters: [tomcat9(url: 'http://172.191.67.179:8080/', 
                         credentialsId: 'tomcatcredential')], 
                     war: '**/*.war',
+                    onFailure: false,
                     contextPath: 'new'
+                }
             }
         }
 
