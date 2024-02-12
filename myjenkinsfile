@@ -1,0 +1,32 @@
+pipeline{
+    agent any
+    tools {
+        maven 'maven'
+        jdk 'java'
+    }
+
+
+    stages {
+
+        stage ('Build'){
+            steps {
+                sh 'mvn clean install package'
+            }
+        }
+
+        stage ('Deploy'){
+            steps {
+                script {
+                    deploy adapters: [tomcat8(url: 'http://204.236.210.211:8080/', 
+                        credentialsId: 'tomcatcredential')], 
+                    war: '**/*.war',
+                    onFailure: false,
+                    contextPath: 'mylab'
+                }
+            }
+        }
+               
+
+    }
+
+}
