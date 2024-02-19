@@ -32,7 +32,7 @@ pipeline{
                     environmentName: aws_environment_name,
                     keyPrefix: aws_key_prefix,
                     rootObject: aws_root_object,
-                    versionLabelFormat: "-${BUILD_NUMBER}"])
+                    versionLabelFormat: "${BUILD_NUMBER}"])
             }
         }
                
