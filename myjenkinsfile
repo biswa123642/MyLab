@@ -8,10 +8,10 @@ pipeline{
     environment {
         aws_region = 'us-east-1'
         aws_credentials = 'aws-credentials'
-        aws_application_name = 'Jenkins-With-Beanstalk'
-        aws_environment_name = 'Jenkins-With-Beanstalk-env'
-        aws_root_object = 'app.jar'
-        aws_key_prefix = 'Jenkins-with-Beanstalk/builds'
+        aws_application_name = 'biswajit'
+        aws_environment_name = 'Biswajit-env'
+        aws_root_object = '**/*.war'
+        aws_key_prefix = 's3-with-Beanstalk/builds'
     }
 
 
