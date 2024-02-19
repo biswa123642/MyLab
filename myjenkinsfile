@@ -10,7 +10,7 @@ pipeline{
         aws_credentials = 'aws-credentials'
         aws_application_name = 'biswajit'
         aws_environment_name = 'Biswajit-env'
-        aws_root_object = '**/*.war'
+        aws_root_object = 'target/mywebapp.war'
         aws_key_prefix = 's3-with-Beanstalk/builds'
     }
 
