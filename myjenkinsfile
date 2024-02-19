@@ -5,6 +5,15 @@ pipeline{
         jdk 'java'
     }
 
+    environment {
+        aws_region = 'us-east-1'
+        aws_credentials = 'aws-credentials'
+        aws_application_name = 'Jenkins-With-Beanstalk'
+        aws_environment_name = 'Jenkins-With-Beanstalk-env'
+        aws_root_object = 'app.jar'
+        aws_key_prefix = 'Jenkins-with-Beanstalk/builds'
+    }
+
 
     stages {
 
@@ -16,14 +25,14 @@ pipeline{
 
         stage ('Deploy'){
             steps {
-                step($class: 'AWSEBDeploymentBuilder',
+                step([$class: 'AWSEBDeploymentBuilder',
                     credentialId: aws_credentials,
                     awsRegion: aws_region,
                     applicationName: aws_application_name,
                     environmentName: aws_environment_name,
                     keyPrefix: aws_key_prefix,
                     rootObject: aws_root_object,
-                    versionLabelFormat: "-${BUILD_NUMBER}",
+                    versionLabelFormat: "-${BUILD_NUMBER}"])
             }
         }
                
