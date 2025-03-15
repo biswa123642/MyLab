@@ -4,16 +4,17 @@ pipeline{
         maven 'maven-3.9.9'
         jdk 'java-21'
     }
-/*
+
     environment {
-        NEXUS_VERSION = "nexus3"
-        NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "52.188.125.203:8081"
-        NEXUS_REPOSITORY = "BiswajitApp"
-        NEXUS_CREDENTIAL_ID = "nexuscredential"
-        ARTIFACT_VERSION = "${BUILD_NUMBER}"
+        //NEXUS_VERSION = "nexus3"
+        //NEXUS_PROTOCOL = "http"
+        //NEXUS_URL = "52.188.125.203:8081"
+        //NEXUS_REPOSITORY = "BiswajitApp"
+        //NEXUS_CREDENTIAL_ID = "nexuscredential"
+        //ARTIFACT_VERSION = "${BUILD_NUMBER}"
+        TOMCAT_URL = credentials('tomcaturl')
     }
-*/
+
     stages {
 
         stage ('Build'){
@@ -25,7 +26,7 @@ pipeline{
         stage ('Deploy'){
             steps {
                 script {
-                    deploy adapters: [tomcat9(url: 'http://20.102.108.165:8080/', 
+                    deploy adapters: [tomcat9(url: TOMCAT_URL, 
                         credentialsId: 'tomcatcredential')], 
                     war: '**/*.war',
                     onFailure: false,
