@@ -91,7 +91,7 @@
     <hr>
 
     <footer>
-        <p>&copy; Biswajit I am always with you</p>
+        <p>&copy; Biswajit We are always with you</p>
     </footer>
 </div> <!-- /container -->
 
