@@ -4,7 +4,7 @@ pipeline{
         maven 'maven-3.9.9'
         jdk 'java-21'
     }
-
+/*
     environment {
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
@@ -13,7 +13,7 @@ pipeline{
         NEXUS_CREDENTIAL_ID = "nexuscredential"
         ARTIFACT_VERSION = "${BUILD_NUMBER}"
     }
-
+*/
     stages {
 
         stage ('Build'){
@@ -25,15 +25,15 @@ pipeline{
         stage ('Deploy'){
             steps {
                 script {
-                    deploy adapters: [tomcat9(url: 'http://172.191.67.179:8080/', 
+                    deploy adapters: [tomcat9(url: 'http://20.102.108.165:8080/', 
                         credentialsId: 'tomcatcredential')], 
                     war: '**/*.war',
                     onFailure: false,
-                    contextPath: 'new'
+                    contextPath: null
                 }
             }
         }
-
+/*
         stage('Publish Artifact Nexus') {
             steps {
                 script {
@@ -69,7 +69,7 @@ pipeline{
                 }
             }
         }
-
+*/
     }
 
 }
