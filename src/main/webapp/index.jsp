@@ -52,7 +52,7 @@
 <div class="jumbotron">
     <div class="container">
         <h1>Hey Team</h1>
-        <p>This is your website</p>
+        <p>This is our website</p>
         <p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
         <p><a class="btn btn-primary btn-lg" role="button">Success!! more &raquo;</a></p>
     </div>
