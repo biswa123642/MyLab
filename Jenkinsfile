@@ -8,7 +8,7 @@ pipeline{
     environment {
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "172.206.226.220:8081"
+        NEXUS_URL = credentials('nexusurl')
         NEXUS_REPOSITORY = "BiswajitApp"
         NEXUS_CREDENTIAL_ID = "nexuscredential"
         ARTIFACT_VERSION = "${BUILD_NUMBER}"
