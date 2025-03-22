@@ -12,7 +12,7 @@ pipeline{
         NEXUS_REPOSITORY = "BiswajitApp"
         NEXUS_CREDENTIAL_ID = "nexuscredential"
         ARTIFACT_VERSION = "${BUILD_NUMBER}"
-        TOMCAT_URL = "tomcaturl"
+        TOMCAT_URL = credentials('tomcaturl')
     }
 
     stages {
