@@ -23,6 +23,30 @@ pipeline{
             }
         }
 
+        stage('SonarQube Code Analysis') {
+            steps {
+              withSonarQubeEnv('sonar') {
+                  sh "mvn sonar:sonar -Dsonar.projectKey=myapplication -Dsonar.projectName='myapplication'"
+              }
+            }
+        }
+
+        stage("SonarQube Quality Gate Check") {
+            steps {
+                script {
+                def qualityGate = waitForQualityGate()
+                    
+                    if (qualityGate.status != 'OK') {
+                        echo "${qualityGate.status}"
+                        error "Quality Gate failed: ${qualityGateStatus}"
+                    }
+                    else {
+                        echo "${qualityGate.status}"
+                        echo "SonarQube Quality Gates Passed"
+                    }
+                }
+            }
+        }
         stage ('Deploy'){
             steps {
                 script {
