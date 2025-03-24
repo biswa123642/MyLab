@@ -33,20 +33,14 @@ pipeline{
 
         stage("SonarQube Quality Gate Check") {
             steps {
-                script {
-                def qualityGate = waitForQualityGate()
-                    
-                    if (qualityGate.status != 'OK') {
-                        echo "${qualityGate.status}"
-                        error "Quality Gate failed: ${qualityGateStatus}"
-                    }
-                    else {
-                        echo "${qualityGate.status}"
-                        echo "SonarQube Quality Gates Passed"
-                    }
+                timeout(time: 2, unit: 'MINUTES') {
+                  script {
+                     waitForQualityGate abortPipeline: true
+                  }
                 }
             }
         }
+
         stage ('Deploy'){
             steps {
                 script {
