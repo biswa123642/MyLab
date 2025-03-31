@@ -1,0 +1,67 @@
+Port Number- 8080
+
+Download tomcat package from https://tomcat.apache.org/download-80.cgi
+
+yum install java-openjdk11 -y
+cd /opt
+wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.100/bin/apache-tomcat-9.0.100.tar.gz
+tar -xvzf apache-tomcat-9.0.100.tar.gz
+mv apache-tomcat-9.0.100 tomcat
+cd tomcat
+cd bin
+./startup.sh
+find / -name context.xml
+vim /opt/tomcat/webapps/host-manager/META-INF/context.xml
+vim /opt/tomcat/webapps/manager/META-INF/context.xml
+cd bin
+./shutdown.sh
+./startup.sh
+cd conf
+vim tomcat-users.xml
+---------------------------------------------------------------------------------------------------------------->
+<role rolename="manager-gui"/>
+<role rolename="manager-script"/>
+<role rolename="manager-jmx"/>
+<role rolename="manager-status"/>
+<user username="admin" password="admin" roles="manager-gui, manager-script, manager-jmx, manager-status"/>
+<user username="deployer" password="deployer" roles="manager-script"/>
+<user username="tomcat" password="s3cret" roles="manager-gui, admin-gui"/>
+----------------------------------------------------------------------------------------------------------------->
+echo $PATH
+ln -s /opt/tomcat/bin/shutdown.sh /usr/bin/tomcatdown
+ln -s /opt/tomcat/bin/startup.sh /usr/bin/tomcatup
+tomcatdown
+tomcatup
+
+#convert pfx file to JKS
+# Go to $JAVA_HOME/bin directory
+keytool -importkeystore -srckeystore Altudo.pfx -srcstoretype pkcs12 -destkeystore altudo.jks -deststoretype JKS
+
+# Update value in the server.xml file
+
+<Connector SSLEnabled="true" acceptCount="100" clientAuth="false" 
+       disableUploadTimeout="true" enableLookups="false" 
+       keystoreFile="conf/altudo.jks" keystorePass="secret" 
+       maxThreads="150" port="443" 
+       protocol="org.apache.coyote.http11.Http11NioProtocol" 
+       scheme="https" secure="true" sslProtocol="TLS"/>
+
+# add below line deploy your apps to https
+
+      <Host name="details.altudo.net"  appBase="webapps"
+            unpackWARs="true" autoDeploy="true">
+            <Context path="" docBase="mydetails-0.0.8" debug="0" privileged="true" />
+        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+               prefix="app_access_log" suffix=".txt"
+               pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+
+# Update the value in web.xml file on the last section of </web-app>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Entire Application</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
