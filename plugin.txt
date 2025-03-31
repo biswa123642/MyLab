@@ -1,0 +1,5 @@
+Maven- Maven Integration plugin
+Tomcat- Deploy to container Plugin
+Nexus- Nexus Artifact Uploader, Pipeline Utility Steps
+Slack- Slack Notification Plugin
+Extra Feature - Pipeline steps, Blue Ocean
