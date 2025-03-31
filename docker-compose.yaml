@@ -48,8 +48,8 @@ services:
       restart: always
       volumes:
         - ./default.conf:/etc/nginx/conf.d/default.conf:ro
-        - ./sonarqube.crt:/etc/nginx/sonarqube.crt:ro
-        - ./sonarqube.key:/etc/nginx/sonarqube.key:ro
+        - ./nginx.crt:/etc/nginx/sonarqube.crt:ro
+        - ./nginx.key:/etc/nginx/sonarqube.key:ro
 
 networks:
   sonarnet:
