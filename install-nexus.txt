@@ -9,6 +9,9 @@ tar -zxvf nexus-unix-x86-64-3.78.1-02.tar.gz
 mv /opt/nexus-3.78.1-02 /opt/nexus
 adduser nexus
 visudo
+----------------------->
+nexus ALL=(ALL) NOPASSWD: ALL
+------------------------>
 chown -R nexus:nexus /opt/nexus
 chown -R nexus:nexus /opt/sonatype-work
 vim /opt/nexus/bin/nexus.rc
