@@ -1,0 +1,18 @@
+# To configure slave node with master node, use below command in Jenkins master node
+
+ssh-keygen
+
+# Copy the public key id_********.pub
+
+# Run the below command in slave node
+yum update -y
+yum install openjdk-21-jdk -y
+yum install git -y
+cd .ssh
+vim authorized_keys ----------------> Paste the .pub key value at the end
+mkdir jenkins
+cd jenkins
+pwd
+chmod -R 777 /home/azureuser/Jenkins
+
+#Rest install required things which was on Jenkins configuration
