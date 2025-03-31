@@ -1,0 +1,65 @@
+version: "3"
+services:
+
+  sonarqube:
+    container_name: sonarqube
+    image: sonarqube:community
+    restart: always
+    depends_on:
+      - db
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonar
+      SONAR_JDBC_USERNAME: sonar
+      SONAR_JDBC_PASSWORD: sonar
+      SONAR_SEARCH_JAVA_ADDITIONAL_OPTS: -Dbootstrap.system_call_filter=false
+    volumes:
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+      - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+    ports:
+      - "9000:9000"
+    networks:
+      - sonarnet
+
+  db:
+    container_name: db
+    image: postgres:12
+    restart: always
+    networks:
+      - sonarnet
+    environment:
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: sonar
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+
+  reverse_proxy:
+      container_name: reverse_proxy
+      depends_on:
+        - sonarqube
+      image: nginx
+      networks:
+        - sonarnet
+      ports:
+        - 443:443
+      restart: always
+      volumes:
+        - ./default.conf:/etc/nginx/conf.d/default.conf:ro
+        - ./sonarqube.crt:/etc/nginx/sonarqube.crt:ro
+        - ./sonarqube.key:/etc/nginx/sonarqube.key:ro
+
+networks:
+  sonarnet:
+    driver: bridge
+
+volumes:
+  sonarqube_conf:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
+  sonarqube_bundled-plugins:
+  postgresql:
+  postgresql_data:
