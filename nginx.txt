@@ -1,0 +1,42 @@
+yum install nginx -y
+systemctl start nginx
+systemctl enable nginx
+systemctl status nginx
+unlink /etc/nginx/sites-enabled/default
+
+# Convert pfx file to key and crt file
+openssl pkcs12 -in Altudo.pfx -nocerts -out nginx.key -nodes -legacy
+openssl rsa -in encrypted.key -out sonarqube.key
+openssl pkcs12 -in Altudo.pfx -nokeys -out nginx.crt -nodes -legacy
+
+# Move these nginx crt and key file to the specific server through winscp
+
+#Next in Linux server below command
+
+cp nginx.crt /etc/nginx
+cp nginx.key /etc/nginx
+ls /etc/nginx
+vim /etc/nginx/sites-available/reverse-proxy
+--------------------------------------------------------------------------------->
+server {
+  listen 443 ssl;
+  listen [::]:443 ssl;
+  client_max_body_size 100M;
+  server_name jenkins.altudo.net;
+  ssl_certificate /etc/nginx/nginx.crt;
+  ssl_certificate_key /etc/nginx/nginx.key;
+  access_log /var/log/nginx/nginx.access.log;
+  location / {
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-SSL on;
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_pass http://98.12.67.88:8080;
+    proxy_redirect off;
+  }
+}
+--------------------------------------------------------------------------------------->
+ln -s /etc/nginx/sites-available/reverse-proxy /etc/nginx/sites-enabled/
+nginx -t
+systemctl restart nginx
