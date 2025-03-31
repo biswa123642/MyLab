@@ -12,9 +12,9 @@ visudo
 chown -R nexus:nexus /opt/nexus
 chown -R nexus:nexus /opt/sonatype-work
 vim /opt/nexus/bin/nexus.rc
-
-run_as_user="nexus" (enter the details in nexus.rc file)
-
+------------------------------>
+run_as_user="nexus"
+------------------------------>
 
 vim /opt/nexus/bin/nexus.vmoptions
 --------------------------------------------------------->
