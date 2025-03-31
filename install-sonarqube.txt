@@ -1,0 +1,21 @@
+#Port Number- 9000
+
+yum update -y
+
+vim /etc/sysctl.conf
+----------------------------->
+vm.max_map_count=262144
+fs.file-max=65536
+------------------------------->
+sysctl -p
+yum install openjdk-17-jdk -y
+yum install docker-compose -y
+service docker start
+mkdir sonar
+cd sonar
+vim docker-compose.yaml
+vim default.conf
+vim sonarqube.crt
+vim sonarqube.key
+docker-compose up -d
+docker-compose logs --follow
