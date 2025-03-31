@@ -1,0 +1,19 @@
+Download maven package https://maven.apache.org/download.cgi
+
+mkdir /opt/maven
+cd /opt/maven
+wget https://dlcdn.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.zip
+unzip apache-maven-3.9.9-bin.zip
+cd apache-maven-3.9.9
+pwd
+find / -name java-21*
+
+vim ~/.bash_profile
+---------------------------------------------->
+JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
+M2_HOME=/opt/maven/apache-maven-3.9.9
+M2=$M2_HOME/bin
+PATH=$PATH:$HOME/bin:$JAVA_HOME:$M2
+---------------------------------------------->
+source ~/.bash_profile
+mvn -v
