@@ -2,7 +2,7 @@ Port Number- 8080
 
 Download tomcat package from https://tomcat.apache.org/download-80.cgi
 
-yum install java-openjdk11 -y
+yum install openjdk-21-jdk -y
 cd /opt
 wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.100/bin/apache-tomcat-9.0.100.tar.gz
 tar -xvzf apache-tomcat-9.0.100.tar.gz
